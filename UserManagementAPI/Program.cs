@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using UserManagementAPI.Data;
 using Microsoft.EntityFrameworkCore.SqlServer; // Ensure this using is present for UseSqlServer
+using UserManagementAPI.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +25,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Request logging middleware (logs incoming request, response status and elapsed time)
+app.UseMiddleware<RequestLoggingMiddleware>();
 
 app.UseAuthorization();
 
